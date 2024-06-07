@@ -49,15 +49,25 @@
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <td>{{ $user->code }}</td>
+                            <td style="text-transform: uppercase">{{ $user->code }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->phone }}</td>
+                            <td>{{
+                                $user->phase == 1 ? "مرحلة اولي" :
+                                ($user->phase == 2 ? "مرحلة ثانية" :
+                                ($user->phase == 3 ? "مرحلة ثالثة" : "مرفوض")),
+
+                             }}</td>
                             <td>{{ $user->created_at }}</td>
-                            <td><a href="/user/edit/{{$user->id}}/{{$user->code}}" class="btn btn-success">تعديل بيانات اللاعب</a></td>
+                            <td>
+                                <a href="/user/edit/{{$user->id}}/{{$user->code}}" class="btn btn-success">تعديل بيانات اللاعب</a>
+                                <button class="btn btn-danger" href-data="{{route("user.delete", ['id' => $user->id])}}" onclick="confirmDeletion({{$user->id}})" >حذف بيانات اللاعب</button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+
 
             <!-- Pagination Links -->
             <div class="d-flex justify-content-center">
@@ -65,5 +75,15 @@
             </div>
         </div>
     @endif
+    <script>
+        function confirmDeletion(id) {
+            const userConfirmed = confirm('هل أنت متأكد من أنك تريد حذف بيانات اللاعب؟');
+            if (userConfirmed) {
+                const url = '/user/delete/' + id;
+                console.log('Redirecting to:', url);
+                window.location.href = '/user/delete?id=' + id;
+            }
+        }
+    </script>
 </body>
 </html>

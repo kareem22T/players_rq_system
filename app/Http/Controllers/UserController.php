@@ -91,6 +91,16 @@ class UserController extends Controller
 
     }
 
+    public function delete(Request $request) {
+        $user = User::where('id', $request->id)->first();
+        if ($user)
+            $user->delete();
+
+        return redirect()->back()
+        ->with('success', 'تم الحفظ بنجاح');;
+
+    }
+
     public function getUserId(Request $request)
     {
         $code = $request->input('code');

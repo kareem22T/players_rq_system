@@ -14,9 +14,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/user-by-code', [UserController::class, 'getUserId']);
     Route::get('/user-get/{uuid}/{code}', [UserController::class, 'getUser'])->name('user.show');
     Route::get('/user/edit/{uuid}/{code}', [UserController::class, 'editIndex'])->name('user.edit')->middleware(App\Http\Middleware\Master::class);
-    Route::post('/user/{uuid}/{code}', [UserController::class, 'store'])->name('user.add');;
+    Route::post('/user/{uuid}/{code}', [UserController::class, 'store'])->name('user.add');
     Route::get('/', [UserController::class,'index']);
     Route::get('/export', [UserController::class,'export']);
+    Route::get('/user/delete', [UserController::class, 'delete'])->name('user.delete');
 });
 Route::post('/admin/login', [RegisterController::class,'login']);
 Route::get('/login', [RegisterController::class,'getLoginIndex'])->name("login");
