@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserCreateRequest;
 use App\Models\User;
+use App\Http\Exports\ApplicantsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -127,6 +129,15 @@ class UserController extends Controller
         else
             $user = User::create($validatedData);
 
-        return redirect()->route('user.show', ["uuid" => $request->id, "code" => $request->code]);
+
+        return redirect()->route('user.show', ["uuid" => $request->id, "code" => $request->code])
+        ->with('success', 'تم الحفظ بنجاح');;
     }
+
+    public function export(Request $request)
+    {
+        $users = User::query();
+        return Excel::download(new ApplicantsExport($users), 'players.xlsx');
+    }
+
 }

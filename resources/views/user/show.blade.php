@@ -23,6 +23,13 @@
 </head>
 <body dir="rtl">
     <div class="container">
+        <br>
+        @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        <br>
+    @endif
         <h1 class="text-center" style="margin-top: 24px;">عرض بيانات اللاعب</h1>
         <br>
         <div class="form_wrapper" style="display: grid; grid-template-columns: 1fr 2fr;gap: 24px;margin-top: 24px; grid-template-rows: 460px">

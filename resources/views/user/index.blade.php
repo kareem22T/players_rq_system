@@ -33,6 +33,9 @@
         @endphp
         <div class="container mt-5">
             <h2 class="mb-4">الاعبين المسجلين حتى الان</h2>
+            <a class="btn btn-success" href="/export">تحميل</a>
+            <br>
+            <br>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -46,7 +49,7 @@
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->code }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>{{ $user->created_at }}</td>
