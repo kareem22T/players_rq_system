@@ -18,6 +18,7 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::get('/', [UserController::class,'index']);
     Route::get('/export', [UserController::class,'export']);
     Route::get('/user/delete', [UserController::class, 'delete'])->name('user.delete');
+    Route::get('/user/update-phase', [UserController::class, 'updatePhase'])->name('user.update');
 });
 Route::post('/admin/login', [RegisterController::class,'login']);
 Route::get('/login', [RegisterController::class,'getLoginIndex'])->name("login");

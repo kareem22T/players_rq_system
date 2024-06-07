@@ -14,6 +14,14 @@
 </head>
 <body dir="rtl">
     <div class="container">
+        <br>
+        @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        <br>
+    @endif
+
         <h1 class="text-center" style="margin-top: 24px;">لاضافة او تعديل بيانات لاعب</h1>
         <p class="text-center">قم بمسح ال QR كود للاعب او ادخل كود الاعب</p>
         <form action="/user-by-code" class="card shadow p-3" style="margin: auto; max-width: 400px">
@@ -62,19 +70,38 @@
                             <td>
                                 <a href="/user/edit/{{$user->id}}/{{$user->code}}" class="btn btn-success">تعديل بيانات اللاعب</a>
                                 <button class="btn btn-danger" href-data="{{route("user.delete", ['id' => $user->id])}}" onclick="confirmDeletion({{$user->id}})" >حذف بيانات اللاعب</button>
+                                <button class="btn btn-info" onclick="showPopUp({{$user->id}}, '{{$user->code}}', {{$user->phase}})">تعديل المرحلة</button>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
 
-
+            <div class="hide-content"style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: #0000005e;z-index: 96999;display: none"></div>
+            <div id="pop-up" style="position: fixed;z-index: 9999999;top: 50%;left: 50%;width: 400px;background: #d8d8d8;padding: 1rem;transform: translate(-50%, -50%);display:none">
+                <div class="form-group mb-4">
+                    <h1 id="player_id"></h1>
+                    <label for="phase" class="mb-2 mr-2">المرحلة</label>
+                    <select class="form-control" name="phase">
+                      <option value="1">مرحلة اولي</option>
+                      <option value="2">مرحلة ثانية</option>
+                      <option value="3">مرحلة ثالثة</option>
+                      <option value="4">مرفوض</option>
+                    </select>
+                    <input type="hidden" id="curr_user_id">
+                  </div>
+                <div class="d-flex" style="justify-content: center; gap: 10px">
+                    <button class="btn btn-primary" onclick="update()">Save</button>
+                    <button class="btn btn-secondary"  onclick="hidePop()">Cancel</button>
+                </div>
+            </div>
             <!-- Pagination Links -->
             <div class="d-flex justify-content-center">
                 {{ $users->links('pagination::bootstrap-4') }}
             </div>
         </div>
     @endif
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function confirmDeletion(id) {
             const userConfirmed = confirm('هل أنت متأكد من أنك تريد حذف بيانات اللاعب؟');
@@ -83,6 +110,22 @@
                 console.log('Redirecting to:', url);
                 window.location.href = '/user/delete?id=' + id;
             }
+        }
+        function showPopUp(id, code, phase) {
+            $("#pop-up").find("#player_id").val(code)
+            $("#pop-up").find("#curr_user_id").val(id)
+            $("#pop-up").find("select").val(phase)
+            $("#pop-up").fadeIn(id)
+            $(".hide-content").fadeIn(id)
+        }
+        function hidePop() {
+            $("#pop-up").fadeOut()
+            $(".hide-content").fadeOut()
+        }
+        function update() {
+            let id = $("#pop-up").find("#curr_user_id").val()
+            let phase = $("#pop-up").find("select").val()
+            window.location.href = '/user/update-phase?id=' + id + "&phase=" + phase;
         }
     </script>
 </body>
