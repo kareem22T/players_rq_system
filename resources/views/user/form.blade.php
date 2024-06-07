@@ -6,9 +6,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Noto+Kufi+Arabic:wght@100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         * {
             font-family: "Noto Kufi Arabic", sans-serif;
+        }
+        @media(max-width: 767.98px) {
+            .form_wrapper {
+                grid-template-columns: 1fr !important
+            }
+            .img {
+                display: none !important
+            }
         }
     </style>
 </head>
@@ -16,7 +25,7 @@
     <div class="container">
         <h1 class="text-center" style="margin-top: 24px;">اضافة بيانات اللاعب</h1>
         <br>
-        <div style="display: grid; grid-template-columns: 1fr 2fr;gap: 24px;margin-top: 24px; grid-template-rows: 460px">
+        <div class="form_wrapper" style="display: grid; grid-template-columns: 1fr 2fr;gap: 24px;margin-top: 24px; grid-template-rows: 460px">
             <div class="img">
                 <img src="{{asset('assets/imgs/main.jpg')}}" style="width: 100%;height: 100%;object-fit: cover;border-radius: 16px;" alt="">
             </div>
