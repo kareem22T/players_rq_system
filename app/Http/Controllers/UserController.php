@@ -152,7 +152,7 @@ class UserController extends Controller
             $user = User::create($validatedData);
 
 
-        return redirect()->route('user.show', ["uuid" => $request->id, "code" => $request->code])
+        return redirect()->to('/')
         ->with('success', 'تم الحفظ بنجاح');;
     }
 
