@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="shortcut icon" href="{{ asset('/dashboard/images/icon.png.jpg') }}?v={{time()}}" type="image/x-icon">
+    {{-- <link rel="shortcut icon" href="{{ asset('/dashboard/images/icon.png.jpg') }}?v={{time()}}" type="image/x-icon"> --}}
     <link rel="stylesheet" href="{{ asset('/dashboard/css/admin.css') }}?v={{time()}}" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Dashboard | @yield('title')</title>
@@ -80,7 +80,7 @@
       height: 4px;
       border-radius: 50%;
       color: #365FA0;
-      box-shadow: 
+      box-shadow:
         calc(1*var(--d))      calc(0*var(--d))     0 0,
         calc(0.707*var(--d))  calc(0.707*var(--d)) 0 1px,
         calc(0*var(--d))      calc(1*var(--d))     0 2px,
