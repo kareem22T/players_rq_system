@@ -71,7 +71,9 @@
                     }}" disabled>
                     <small id="emailHelp" class="form-text text-danger">{{ $errors->first('phase') }}</small>
                   </div>
-                  <a href="/user/edit/{{$uuid}}/{{$code}}" class="btn btn-success w-100">تعديل</a>
+                  @if(Auth::user()->role === "Master")
+                    <a href="/user/edit/{{$uuid}}/{{$code}}" class="btn btn-success w-100">تعديل</a>
+                  @endif
             </form>
         </div>
     </div>

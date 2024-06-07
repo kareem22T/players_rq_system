@@ -62,6 +62,7 @@ class UserController extends Controller
         abort(404);
 
     }
+
     public function editIndex($uuid, $code) {
         // Extract the letter and number from the code
         if (preg_match('/^([A-Z])(\d+)$/i', $code, $matches)) {
@@ -86,6 +87,32 @@ class UserController extends Controller
         // If the code pattern does not match, ID does not match UUID, or ID is out of range, return a 404 page
         abort(404);
 
+    }
+
+    public function getUserId(Request $request)
+    {
+        $code = $request->input('code');
+
+        // Validate the code pattern
+        if (!preg_match('/^[a-jA-J][1-9][0-9]{0,2}$/', $code)) {
+            return redirect()->back()->withErrors(["error" => 'هذا الرمز غير متوفر']);
+        }
+
+        // Extract letter and number
+        $letter = strtolower($code[0]);
+        $number = intval(substr($code, 1));
+
+        // Check if number is within the valid range
+        if ($number < 1 || $number > 500) {
+            return redirect()->back()->withErrors(["error" => 'هذا الرمز غير متوفر']);
+        }
+
+        // Assuming you have a method to get the user ID based on the letter position
+        // Here, we'll just return the letter position for demonstration
+        // Replace this with actual user ID retrieval logic
+        $userId = $number + ((ord($letter) - ord('a')) * 500);
+
+        return redirect()->route("user.form", ["uuid" => $userId, "code" => $code]);
     }
 
     public function store(UserCreateRequest $request)

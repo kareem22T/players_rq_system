@@ -15,7 +15,10 @@ class RegisterController extends Controller
     use DataFormController;
 
     public function getLoginIndex() {
-        $createAdmin = Admin::all()->count() > 0 ? '' : Admin::create(['email' => 'Master@admin.system', 'password' => Hash::make('Master123456'), "role" => "Master"]);
+        if (Admin::all()->count() === 0) {
+            Admin::create(['email' => 'Master@admin.system', 'password' => Hash::make('Master123456'), "role" => "Master"]);
+            Admin::create(['email' => 'DataEntery@admin.system', 'password' => Hash::make('Entery123456'), "role" => "DataEntery"]);
+        }
         return view('admin.auth.login');
     }
 
