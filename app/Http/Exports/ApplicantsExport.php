@@ -50,7 +50,9 @@ class ApplicantsExport implements FromQuery, WithHeadings, WithMapping, ShouldAu
             $applicant->phase == 1 ? "مرحلة اولي" :
             ($applicant->phase == 2 ? "مرحلة ثانية" :
             ($applicant->phase == 3 ? "مرحلة ثالثة" : "مرفوض")),
-        ];
+            $applicant->created_at->format('d M Y'), // Format created_at as day, date
+            $applicant->created_at->format('H:i'), // Format created_at as hours:minutes
+    ];
     }
 
     /**
@@ -68,6 +70,8 @@ class ApplicantsExport implements FromQuery, WithHeadings, WithMapping, ShouldAu
             'Age Group',
             'Position',
             'Phase',
+            'Created Date', // Updated heading for created_at date
+            'Created Time', // Updated heading for created_at time
         ];
     }
 }
