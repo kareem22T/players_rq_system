@@ -7,6 +7,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Models\User;
 use App\Http\Exports\ApplicantsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -144,6 +145,7 @@ class UserController extends Controller
         $validatedData = $request->validated();
         $validatedData['id'] = $request->id;
         $validatedData['code'] = $request->code;
+        $validatedData['created_at'] = Carbon::now('GMT+3');
         $user = User::find($request->id);
 
         if ($user)

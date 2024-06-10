@@ -25,6 +25,7 @@ class User extends Authenticatable
         'age_group',
         'position',
         'phase',
+        'created_at',
     ];
 
     /**
